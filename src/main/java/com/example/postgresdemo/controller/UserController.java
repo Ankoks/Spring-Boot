@@ -22,9 +22,9 @@ public class UserController {
     @RequestMapping(value = "/users", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> get() {
         List<User> users = new ArrayList<>();
-        users.add(new User("123@mail.ru", true, "123"));
-        users.add(new User("456@mail.ru", false, "456"));
-        users.add(new User("789@mail.ru", true, "789"));
+        users.add(new User("123@mail.ru", true, "123", "some text 1"));
+        users.add(new User("456@mail.ru", false, "456", "some text 2"));
+        users.add(new User("789@mail.ru", true, "789", "some text 3"));
         return users;
     }
 }
