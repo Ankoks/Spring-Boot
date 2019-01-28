@@ -12,7 +12,7 @@ public class MathService {
 
     @Cacheable(value = "mycache", key="#n")
     public int arithmeticProgression(int n) {
-        System.out.println("Executing evaluate progression");
+        System.out.println("Executing evaluate progression with n = " + n);
         int summ = 0;
         for (int i = 0; i < n; i++) {
             summ += i;
