@@ -14,7 +14,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
-import java.util.Arrays;
 import java.util.Collections;
 
 @SpringBootApplication
