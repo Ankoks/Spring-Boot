@@ -44,4 +44,21 @@ public class UserController {
         users.add(new User("789@mail.ru", true, "789", "some text 3"));
         return users;
     }
+
+    @ApiOperation(
+            value = "Список пользователей (с ошибкой)",
+            notes = "Список пользователей (с ошибкой)",
+            response = User.class
+    )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Ошибка при вызове метода получена", response = User.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = Problem.class),
+            @ApiResponse(code = 403, message = "Forbidden", response = Problem.class),
+            @ApiResponse(code = 404, message = "Not Found", response = Problem.class)
+    })
+    @JsonView(View.UI.class)
+    @RequestMapping(value = "/users_error", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<User> getError() {
+        throw new IllegalArgumentException();
+    }
 }
