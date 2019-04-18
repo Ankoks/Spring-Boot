@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -23,6 +24,9 @@ public class GraphsController {
 
     @GetMapping(value = "/post", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Post>> getAllPosts() {
-        return ResponseEntity.ok(postRepository.findAll());
+        List<Post> allPosts = postRepository.findAll();
+        Optional<Post> postById = postRepository.findWithCollectionById(1L);
+
+        return ResponseEntity.ok(allPosts);
     }
 }
