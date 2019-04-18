@@ -1,5 +1,8 @@
 package com.example.postgresdemo.model.graphs;
 
+import com.example.postgresdemo.view.View;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -23,12 +26,24 @@ public class Post {
 
     private String subject;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
     private List<Comment> comments = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
     private UserEntity user;
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
 }
 
 /**
