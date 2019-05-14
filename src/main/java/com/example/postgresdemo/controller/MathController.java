@@ -1,7 +1,9 @@
 package com.example.postgresdemo.controller;
 
 import com.example.postgresdemo.component.MathService;
+import com.example.postgresdemo.security.RoleConstants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +19,7 @@ public class MathController {
     private MathService service;
 
     @GetMapping(value = "/arithmetic/{n}")
+    @PreAuthorize(value = RoleConstants.HAS_AUTHORITY_USER)
     public int getSumm(@PathVariable("n") Integer n) {
         long before = System.nanoTime();
         int summ = service.arithmeticProgression(n);

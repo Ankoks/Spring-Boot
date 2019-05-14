@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.parsing.Problem;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,12 +37,33 @@ public class UserController {
             @ApiResponse(code = 404, message = "Not Found", response = Problem.class)
     })
     @JsonView(View.UI.class)
-    @RequestMapping(value = "/users", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<User> get() {
+    @RequestMapping(value = "/users/1", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize(value = "hasAuthority('ADMIN')")
+    public List<User> getForAdmin() {
         List<User> users = new ArrayList<>();
         users.add(new User("123@mail.ru", true, "123", "some text 1"));
         users.add(new User("456@mail.ru", false, "456", "some text 2"));
         users.add(new User("789@mail.ru", true, "789", "some text 3"));
+        return users;
+    }
+
+    @ApiOperation(
+            value = "Список пользователей",
+            notes = "Список пользователей",
+            response = User.class
+    )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Список пользователей получен", response = User.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = Problem.class),
+            @ApiResponse(code = 403, message = "Forbidden", response = Problem.class),
+            @ApiResponse(code = 404, message = "Not Found", response = Problem.class)
+    })
+    @JsonView(View.UI.class)
+    @RequestMapping(value = "/users/2", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize(value = "hasAuthority('USER')")
+    public List<User> getForUser() {
+        List<User> users = new ArrayList<>();
+        users.add(new User("123@mail.ru", true, "123", "some text 1"));
         return users;
     }
 
