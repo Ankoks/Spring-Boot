@@ -19,7 +19,7 @@ public class MathController {
     private MathService service;
 
     @GetMapping(value = "/arithmetic/{n}")
-    @PreAuthorize(value = RoleConstants.HAS_AUTHORITY_USER)
+//    @PreAuthorize(value = RoleConstants.HAS_AUTHORITY_USER)
     public int getSumm(@PathVariable("n") Integer n) {
         long before = System.nanoTime();
         int summ = service.arithmeticProgression(n);
