@@ -1,9 +1,7 @@
 package com.example.postgresdemo.controller;
 
 import com.example.postgresdemo.component.MathService;
-import com.example.postgresdemo.security.RoleConstants;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
  * User: ankoks
  * Date: 28/01/2019
  */
-@RestController
+@RestController(value = "/math")
 public class MathController {
 
     @Autowired

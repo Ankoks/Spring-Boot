@@ -26,6 +26,11 @@ public class ChannelConfig {
         return new QueueChannel();
     }
 
+    @Bean(name = Channels.ERROR_CHANNEL)
+    public QueueChannel errorChannel() {
+        return new QueueChannel();
+    }
+
     @Bean(name = "msgExecutor")
     public AsyncTaskExecutor exec() {
         System.out.println("Creating Async Queue Task Executor");

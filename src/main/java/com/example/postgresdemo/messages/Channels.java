@@ -7,4 +7,5 @@ public interface Channels {
 
     String PROCESSING_CHANNEL = "PROCESSING_CHANNEL";
     String SUCCESSES_CHANNEL = "SUCCESSES_CHANNEL";
+    String ERROR_CHANNEL = "ERROR_CHANNEL";
 }

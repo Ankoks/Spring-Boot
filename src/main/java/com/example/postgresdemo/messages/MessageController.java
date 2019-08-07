@@ -38,6 +38,10 @@ public class MessageController {
     @Qualifier(value = Channels.SUCCESSES_CHANNEL)
     private QueueChannel successChannel;
 
+    @Autowired
+    @Qualifier(value = Channels.ERROR_CHANNEL)
+    private QueueChannel errorChannel;
+
     @GetMapping(value = "/sendSomeMessage")
     public ResponseEntity<SomeMessageDTO> sendSomeMessage() {
         String uuid = UUID.randomUUID().toString();
@@ -57,16 +61,23 @@ public class MessageController {
 
     @GetMapping(value = "/checkSomeMessage/{guid}")
     public void checkSomeMessage(@PathVariable("guid") String guid) {
-        int queueSize = successChannel.getQueueSize();
+        int errorSize = errorChannel.getQueueSize();
+        int successSize = successChannel.getQueueSize();
 
-        List<Message<?>> purge = successChannel.purge(new StatusMessageSelector(guid));
+        List<Message<?>> success = successChannel.purge(new StatusMessageSelector(guid));
+        List<Message<?>> error = errorChannel.purge(new StatusMessageSelector(guid));
 
-        System.out.println(queueSize);
+        System.out.println("successSize = [" + successSize + "], errorSize = [" + errorSize + "]");
     }
 
     @ServiceActivator(inputChannel = Channels.PROCESSING_CHANNEL, outputChannel = Channels.SUCCESSES_CHANNEL,
             async = "process",
-            poller = @Poller(taskExecutor = "msgExecutor", maxMessagesPerPoll = "1"))
+            poller = @Poller(
+                    taskExecutor = "msgExecutor",
+                    maxMessagesPerPoll = "1",
+                    errorChannel = Channels.ERROR_CHANNEL
+            )
+    )
     public Message<ResponseDTO> process(Message<SomeMessageDTO> message) {
         System.out.println("Activate: " + Channels.PROCESSING_CHANNEL);
 
