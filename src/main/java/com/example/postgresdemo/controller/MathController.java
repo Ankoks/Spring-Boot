@@ -4,13 +4,15 @@ import com.example.postgresdemo.component.MathService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  * User: ankoks
  * Date: 28/01/2019
  */
-@RestController(value = "/math")
+@RestController
+@RequestMapping(value = "/math")
 public class MathController {
 
     @Autowired
@@ -21,7 +23,7 @@ public class MathController {
     public int getSumm(@PathVariable("n") Integer n) {
         long before = System.nanoTime();
         int summ = service.arithmeticProgression(n);
-        System.out.println("evaluate summ = " + (System.nanoTime() - before) + " ms");
+        System.out.println("evaluate summ = " + (System.nanoTime() - before) + " ms " + summ);
 
         return summ;
     }

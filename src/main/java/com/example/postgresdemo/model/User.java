@@ -1,7 +1,6 @@
 package com.example.postgresdemo.model;
 
 import com.example.postgresdemo.view.View;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 
 /**
@@ -9,16 +8,16 @@ import com.fasterxml.jackson.annotation.JsonView;
  * Date: 18/01/2019
  */
 public class User {
-    @JsonView(View.UI.class)
+    @JsonView(View.U1.class)
     private String email;
 
-    @JsonView(View.UI.class)
+    @JsonView(View.U2.class)
     private boolean enabled;
 
-    @JsonView(View.REST.class)
+    @JsonView(View.All.class)
     private String password;
 
-    @JsonIgnore
+//    @JsonIgnore
     @JsonView(View.UI.class)
     private String text;
 
