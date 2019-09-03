@@ -27,4 +27,9 @@ public class MathController {
 
         return summ;
     }
+
+    @GetMapping(value = "/test")
+    public String test() {
+        return null;
+    }
 }
